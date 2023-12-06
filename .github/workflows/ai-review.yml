@@ -14,7 +14,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: AI Code Reviewer
-        uses: pomier/ai-codereviewer@main
+        uses: pomier/ai-codereviewer@debug
         with:
           GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
