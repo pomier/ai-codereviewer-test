@@ -35,6 +35,4 @@ jobs:
             - Do not use services for simple data formatting or calculations without business logic.
             - When creating a new service, use the Rails generator command provided.
             - Use the service by calling its `call` method with the required parameters.
-            Please limit yourself to a maximum of three most relevant comments
-
 
