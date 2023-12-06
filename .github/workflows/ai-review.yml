@@ -13,10 +13,26 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v3
 
-      - name: AI Code Reviewer
+      - name: Service Fellowship AI Code Reviewer
         uses: pomier/ai-codereviewer@debug
         with:
           GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_API_MODEL: "gpt-4-1106-preview"
-          exclude: "**/*.json, **/*.md" # Optional: exclude patterns separated by commas
+          exclude: "**/*.json, **/*.md"
+          bot_name: Service Fellowship
+          rules: |
+            - Services must encapsulate logic from a controller that could be reused elsewhere.
+            - Service names should use action verbs like "create", "send", "notify", and avoid vague terms like "handle" or "manage".
+            - The `initialize` method of a service should take the company as the first argument, and the main service resource (or array of resources) as the second. Additional arguments must be named.
+            - Avoid using boolean values like `skip_something` or `allow_something` in the `initialize` method. Instead, consider creating distinct services.
+            - The `call` method is mandatory and should contain the service's logic. Limit its side effects to the service's purpose.
+            - In the `call` method, structure code as a list of actions, and avoid complex conditions.
+            - Services should not define accessors and should use instance variables.
+            - Services should not return a Result object unless necessary. Typically, they don't return anything or may mutate objects passed as arguments.
+            - Raise exceptions directly in the service for errors, and consider defining a base exception class for each service.
+            - Use services when there's a need to encapsulate complex logic or to avoid duplication in controllers.
+            - Do not use services for simple data formatting or calculations without business logic.
+            - When creating a new service, use the Rails generator command provided.
+            - Use the service by calling its `call` method with the required parameters.
+
